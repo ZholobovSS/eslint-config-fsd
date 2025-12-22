@@ -1,6 +1,6 @@
 {
     "name": "@zh2s/eslint-config-fsd",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "author": "Zholobov Semyon Sergeevich <zholobovsemyonsergeevich@gmail.com>",
     "license": "MIT",
     "description": "Eslint flat config for fsd methodology",
