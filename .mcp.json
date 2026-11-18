@@ -1,0 +1,38 @@
+{
+  "mcpServers": {
+    "serena": {
+      "type": "stdio",
+      "command": "serena",
+      "args": [
+        "start-mcp-server",
+        "--context",
+        "claude-code",
+        "--project-from-cwd"
+      ]
+    },
+    "context7": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["${HOME}/.local/share/dsr-mcp/node_modules/@upstash/context7-mcp/dist/index.js"],
+      "env": {
+        "CONTEXT7_API_KEY": "${CONTEXT7_API_KEY:-}"
+      }
+    },
+    "playwright": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "${HOME}/.local/share/dsr-mcp/node_modules/@playwright/mcp/cli.js",
+        "--browser",
+        "chrome",
+        "--user-data-dir",
+        "${HOME}/.cache/dsr-admin-playwright",
+        "--ignore-https-errors",
+        "--viewport-size",
+        "1600x1000",
+        "--console-level",
+        "warning"
+      ]
+    }
+  }
+}

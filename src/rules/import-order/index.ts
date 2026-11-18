@@ -1,8 +1,8 @@
-import { Linter } from 'eslint';
+import type { Linter } from 'eslint';
 import { layersLib } from '../../utils/layers.js';
 
 export const importOrder: Linter.Config['rules'] = {
-    'import/order': [
+    'import-x/order': [
         2,
         {
             alphabetize: {

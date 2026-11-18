@@ -7,13 +7,9 @@ import tseslint from 'typescript-eslint';
 
 export default defineConfig([
     globalIgnores(['dist', 'node_module']),
-    tseslint.configs.recommended,
     {
-        files: ['**/*.{ts}'],
-        extends: [js.configs.recommended],
-        plugins: {
-            js,
-        },
+        files: ['**/*.ts'],
+        extends: [js.configs.recommended, tseslint.configs.recommended],
         languageOptions: {
             ecmaVersion: 2022,
             globals: { ...globals.browser, ...globals.node },

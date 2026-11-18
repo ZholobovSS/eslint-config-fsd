@@ -1,0 +1,39 @@
+approval_policy = "on-request"
+approvals_reviewer = "auto_review"
+sandbox_mode = "workspace-write"
+
+[mcp_servers.serena]
+command = "/bin/sh"
+args = [
+    "-c",
+    'exec "$HOME/.local/share/dsr-mcp/serena/bin/serena" "$@"',
+    "serena",
+    "start-mcp-server",
+    "--context",
+    "codex",
+    "--project-from-cwd",
+    "--open-web-dashboard",
+    "false",
+]
+cwd = "/Users/zh2s/Desktop/ZH2S/Coding/eslint-config-fsd"
+startup_timeout_sec = 45
+
+[mcp_servers.context7]
+command = "/bin/sh"
+args = ["-c", 'exec node "$HOME/.local/share/dsr-mcp/node_modules/@upstash/context7-mcp/dist/index.js"']
+env_vars = ["CONTEXT7_API_KEY"]
+
+[mcp_servers.playwright]
+command = "/bin/sh"
+args = [
+    "-c",
+    'exec node "$HOME/.local/share/dsr-mcp/node_modules/@playwright/mcp/cli.js" --user-data-dir "$HOME/.cache/dsr-admin-playwright" "$@"',
+    "playwright-mcp",
+    "--browser",
+    "chrome",
+    "--ignore-https-errors",
+    "--viewport-size",
+    "1600x1000",
+    "--console-level",
+    "warning",
+]

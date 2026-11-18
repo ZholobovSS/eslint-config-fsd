@@ -1,24 +1,35 @@
 import { publicApi } from './rules/public-api/index.js';
 import { layersSlices } from './rules/layers-slices/index.js';
 import { importOrder } from './rules/import-order/index.js';
-import { ESLint, Linter } from 'eslint';
-import importPlugin from 'eslint-plugin-import';
+import type { ESLint, Linter } from 'eslint';
+import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript';
+import importPlugin from 'eslint-plugin-import-x';
 import { defineConfig, globalIgnores } from 'eslint/config';
 import boundaries from 'eslint-plugin-boundaries';
 import { layersLib } from './utils/layers.js';
 
-const boundariesPlugin = boundaries as unknown as ESLint.Plugin;
+interface FsdConfig {
+    readonly flatConfig: Linter.Config[];
+    readonly rules: Record<'publicApi' | 'layersSlices' | 'importOrder', Linter.Config['rules']>;
+    readonly settings: NonNullable<Linter.Config['settings']>;
+    readonly plugins: NonNullable<Linter.Config['plugins']>;
+}
 
-const settings: Linter.Config['settings'] = {
+const settings: FsdConfig['settings'] = {
     'boundaries/elements': [...layersLib.getLayersBoundariesElements(), ...layersLib.getGodModeElements()],
+    'boundaries/dependency-nodes': ['import'],
     'import/resolver': {
         typescript: true,
     },
+    'import-x/resolver-next': [createTypeScriptImportResolver()],
 };
 
-const plugins: Linter.Config['plugins'] = { boundaries: boundariesPlugin };
+const plugins: FsdConfig['plugins'] = {
+    ...importPlugin.flatConfigs.recommended.plugins,
+    boundaries: boundaries as unknown as ESLint.Plugin,
+};
 
-const rules: Record<'publicApi' | 'layersSlices' | 'importOrder', Linter.Config['rules']> = {
+const rules: FsdConfig['rules'] = {
     publicApi,
     layersSlices,
     importOrder,
@@ -38,9 +49,11 @@ const flatConfig: Linter.Config[] = defineConfig([
     },
 ]);
 
-export default {
+const config: FsdConfig = {
     flatConfig,
     rules,
     settings,
     plugins,
-} as const;
+};
+
+export default config;

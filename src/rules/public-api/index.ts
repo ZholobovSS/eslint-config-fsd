@@ -1,4 +1,4 @@
-import { Linter } from 'eslint';
+import type { Linter } from 'eslint';
 import { layersLib } from '../../utils/layers.js';
 
 const FS_SLICED_LAYERS_REG = layersLib.getUpperLayers(layersLib.FS_LAYERS_NAME.shared).join('|');
@@ -7,7 +7,7 @@ const FS_SEGMENTS_REG = [...layersLib.FS_SEGMENTS_LIST, ...layersLib.FS_SEGMENTS
 );
 
 export const publicApi: Linter.Config['rules'] = {
-    'import/no-internal-modules': [
+    'import-x/no-internal-modules': [
         'error',
         {
             allow: [

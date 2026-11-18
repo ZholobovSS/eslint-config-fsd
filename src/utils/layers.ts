@@ -41,7 +41,6 @@ const getGodModeElements = () =>
     layersLib.FS_LAYERS_LIST.map((layer) => ({
         type: `gm_${layer}`,
         pattern: `${layer}/_*`,
-        mode: 'folder',
         capture: ['slices'],
     }));
 
@@ -49,7 +48,6 @@ const getLayersBoundariesElements = () =>
     layersLib.FS_LAYERS_LIST.map((layer) => ({
         type: layer,
         pattern: `${layer}/!(_*){,/*}`,
-        mode: 'folder',
         capture: ['slices'],
     }));
 
